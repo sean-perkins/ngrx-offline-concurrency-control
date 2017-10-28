@@ -1,0 +1,25 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "sourceMap": false,
+        "declaration": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es5",
+        "baseUrl": "./",
+        "module": "es2015",
+        "types": []
+    },
+    "exclude": [
+        "test.ts",
+        "**/*.spec.ts"
+    ],
+    "include": [
+        "index.ts"
+    ],
+    "angularCompilerOptions": {
+        "skipTemplateCodegen": true
+    }
+}
