@@ -6,12 +6,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './reducers';
 import * as tokens from './tokens';
 
+import * as services from './services';
+
 const providers = [
     {
         provide: tokens.NetworkDetectToken,
         useValue: true
     },
-    BaseNetworkService
+    services.BaseNetworkService,
+    services.NgrxHttp
 ];
 
 @NgModule({

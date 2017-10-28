@@ -5,9 +5,13 @@ import { Network } from '../actions/network';
 import { NetworkType } from '../utils';
 import * as tokens from '../tokens';
 import { getNetworkConnectionType } from '../reducers';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class BaseNetworkService {
+
+    onNetworkChange: BehaviorSubject<NetworkType> = new BehaviorSubject(undefined);
 
     constructor(
         @Inject(tokens.NetworkDetectToken) autoDetectNetworkChange: boolean,
@@ -24,6 +28,9 @@ export class BaseNetworkService {
                 window.addEventListener('offline', () => this.updateConnection('offline'));
             }
         }
+        this.connectionType$
+            .do(type => this.onNetworkChange.next(type))
+            .subscribe();
     }
 
     /**
