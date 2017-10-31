@@ -6,6 +6,7 @@ import { NgxHttpModule, NgrxHttp, BaseNetworkService, ngrxHttpFactory } from './
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
+import { ExampleModule } from './example/example.module';
 
 @NgModule({
     declarations: [
@@ -17,6 +18,7 @@ import { Http, XHRBackend, RequestOptions, HttpModule } from '@angular/http';
         HttpModule,
         BrowserModule,
         NgxHttpModule,
+        ExampleModule
     ],
     providers: [
         {

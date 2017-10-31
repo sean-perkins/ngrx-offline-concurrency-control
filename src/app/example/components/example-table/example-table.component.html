@@ -1,0 +1,15 @@
+<button (click)="onNextPage()">Fetch Next Page</button>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of records$ | async">
+            <td>{{ row.id }}</td>
+            <td>{{ row.title }}</td>
+        </tr>
+    </tbody>
+</table>

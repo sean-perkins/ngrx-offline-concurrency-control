@@ -4,10 +4,13 @@ import { NetworkType } from '../utils';
 export interface State {
     // The device's current connection status type
     connectionType: NetworkType;
+    // ISO timestamp when the user went offline
+    offlineAt: string;
 }
 
 const initialState: State = {
-    connectionType: undefined
+    connectionType: undefined,
+    offlineAt: undefined
 };
 
 export function reducer(state = initialState, action: Network.Actions): State {
@@ -15,6 +18,10 @@ export function reducer(state = initialState, action: Network.Actions): State {
         case Network.SET_NETWORK:
             return Object.assign({}, state, {
                 connectionType: action.payload
+            });
+        case Network.NETWORK_OFFLINE:
+            return Object.assign({}, state, {
+                offlineAt: new Date().toISOString()
             });
         default: {
             return state;

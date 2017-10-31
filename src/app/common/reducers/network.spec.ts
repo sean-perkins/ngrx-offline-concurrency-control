@@ -2,7 +2,8 @@ import { reducer } from './network';
 import { Network } from '../actions/network';
 
 const testState = {
-    connectionType: undefined
+    connectionType: undefined,
+    offlineAt: undefined
 };
 
 describe('Network reducer', () => {
@@ -25,6 +26,16 @@ describe('Network reducer', () => {
         });
         const expected = 'wifi';
         expect(actual.connectionType).toBe(expected);
+    });
+
+    it('should set the offlineAt timestamp when NETWORK_OFFLINE is dispatched', () => {
+        const state = testState;
+        const actual = reducer(state, {
+            type: Network.NETWORK_OFFLINE,
+            payload: undefined
+        });
+        expect(actual.offlineAt).toBeDefined();
+        expect(Date.parse(actual.offlineAt)).not.toBeNaN();
     });
 
 });

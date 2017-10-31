@@ -11,6 +11,7 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class BaseNetworkService {
 
+    // Observables funnel values through stremams, Subject allows us to access the direct value from memory
     onNetworkChange: BehaviorSubject<NetworkType> = new BehaviorSubject(undefined);
 
     constructor(
@@ -18,15 +19,7 @@ export class BaseNetworkService {
         private store$: Store<any>) {
         if (autoDetectNetworkChange) {
             // Check if the user is on a browser
-            if (typeof window !== 'undefined') {
-                // Find current online status
-                if (typeof navigator !== 'undefined') {
-                    this.updateConnection(navigator.onLine ? 'wifi' : 'offline');
-                }
-                // Establish listener events for connection changes
-                window.addEventListener('online', () => this.updateConnection('wifi'));
-                window.addEventListener('offline', () => this.updateConnection('offline'));
-            }
+            this.handleBrowserAutoDetect();
         }
         this.connectionType$
             .do(type => this.onNetworkChange.next(type))
@@ -46,6 +39,21 @@ export class BaseNetworkService {
      */
     updateConnection(type: NetworkType): void {
         this.store$.dispatch(new Network.SetNetwork(type));
+    }
+
+    /**
+     * Auto-detect network status change status on a browser-enabled client
+     */
+    private handleBrowserAutoDetect() {
+        if (typeof window !== 'undefined') {
+            // Find current online status
+            if (typeof navigator !== 'undefined') {
+                this.updateConnection(navigator.onLine ? 'wifi' : 'offline');
+            }
+            // Establish listener events for connection changes
+            window.addEventListener('online', () => this.updateConnection('wifi'));
+            window.addEventListener('offline', () => this.updateConnection('offline'));
+        }
     }
 
 }

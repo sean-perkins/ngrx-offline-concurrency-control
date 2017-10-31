@@ -10,7 +10,7 @@ import { Http } from '@angular/http';
 })
 export class AppComponent implements OnInit {
 
-    title = 'app';
+    title = 'ngx-offline-concurrency-control';
 
     constructor(
         private actions$: Actions,
